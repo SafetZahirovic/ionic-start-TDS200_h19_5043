@@ -1,0 +1,61 @@
+<app-header title="Legg til et nytt rom" rightIcon="camera" [secondaryAction]="takePicture.bind(this)"></app-header>
+<ion-content style="margin-bottom: 50px!important;">
+    <img #imageElement [src]=" hasPicture ? 'data:image/jpeg;base64,' + picture : 'assets/images/placeholder.jpg'" style="max-height: 30vh; width: 100%;">
+    <form  padding="10" [formGroup]="newRoomFormGroup" margin-top="20">
+      <ion-item lines="none">
+        <ion-label position="stacked">Room navn*</ion-label>
+        <ion-input formControlName="roomName" type="text" [(ngModel)]="roomName"></ion-input>
+        <span *ngIf="submitted && newRoomFormGroup.controls.roomName.errors">
+           <span style="color: var(--ion-color-danger); font-size: 10px" *ngIf="newRoomFormGroup.controls['roomName'].errors.required">Du må fylle ut room navn</span>
+        </span>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label position="stacked">Utleier*</ion-label>
+        <ion-input formControlName="companyRentingRoom" placeholder="Utleier" type="text" [(ngModel)]="companyRentingRoom"></ion-input>
+        <span *ngIf="submitted && newRoomFormGroup.controls.companyRentingRoom.errors">
+           <span style="color: var(--ion-color-danger); font-size: 10px" *ngIf="newRoomFormGroup.controls['companyRentingRoom'].errors.required">Du må fylle ut selskapets navn</span>
+        </span>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label position="stacked">Adresse*</ion-label>
+        <ion-input formControlName="addressFromCoordinates" placeholder="Addresse" type="text" [(ngModel)]="addressFromCoordinates">
+          <ion-spinner slot="start" *ngIf="startSpinner" name="circles"></ion-spinner>
+          <ion-button fill="clear" (click)="getPositionAndSetAddress()" color="transparent" class="input-button" slot="end" style="z-index: 99999;">
+            <ion-icon color="dark" name="pin"></ion-icon>
+          </ion-button>
+        </ion-input>
+        <span *ngIf="submitted && newRoomFormGroup.controls.addressFromCoordinates.errors">
+           <span style="color: var(--ion-color-danger); font-size: 10px" *ngIf="newRoomFormGroup.controls['addressFromCoordinates'].errors.required">Du må fylle ut adressen</span>
+        </span>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label position="stacked">Kapasitet*</ion-label>
+        <ion-input formControlName="capacity"  placeholder="Kapasitet" type="number" [(ngModel)]="capacity"></ion-input>
+        <span *ngIf="submitted && newRoomFormGroup.controls.capacity.errors">
+           <span style="color: var(--ion-color-danger); font-size: 10px" *ngIf="newRoomFormGroup.controls['capacity'].errors.required">Du må fylle ut dette kapasiten</span>
+        </span>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label position="stacked">Dato*</ion-label>
+        <ion-input readonly="true" placeholder="Legg til datoer" (click)="presentModal()">
+          <ion-button fill="clear" color="transparent" slot="end" class="input-button" >
+            <ion-icon color="dark" name="calendar"></ion-icon>
+          </ion-button>
+        </ion-input>
+        <div *ngIf="submitted && dates.length <= 0">
+          <span style="color: var(--ion-color-danger); font-size: 10px">'Du må velge minst et dato'</span>
+        </div>
+      </ion-item>
+      <ion-item *ngIf="dates.length > 0" lines="none">
+          <div text-center margin-top="30" class="chips-container">
+            <ion-chip  color="secondary" *ngFor="let element of dates, let i = index">
+              <ion-label class="chip-label" >{{element}}</ion-label>
+              <ion-icon color="tertiary" (click)="removeFromPickedDates(i)" name="close-circle"></ion-icon>
+            </ion-chip>
+          </div>
+      </ion-item>
+      <div text-center style="width: 100%; margin: 30px auto;">
+        <ion-button class="submit-button" size="default" color="primary" (click)="saveNewRoomToDatabase()">Post</ion-button>
+      </div>
+    </form>
+</ion-content>

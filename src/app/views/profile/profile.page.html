@@ -1,0 +1,29 @@
+<app-header title="Profil" rightSlotName="Log ut" [secondaryAction]="logout.bind(this)"></app-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="avatar-container" text-center>
+      <ion-avatar class="avatar-container__avatar" >
+        <img [src]="link" alt="profile-picture">
+      </ion-avatar>
+    </ion-row>
+  </ion-grid>
+
+  <ion-list margin-top="15">
+    <ion-item *ngIf="userNotSub ? userNotSub.appointments && userNotSub.appointments.length > 0 : 0" padding="4" lines="none">
+      <h4>
+        Dine reserverte rom:
+      </h4>
+    </ion-item>
+
+    <ion-item [hidden]="appointment.bookedDates.length <= 0 || !appointment.bookedDates[0]" class="list-item" lines="none" padding="2" *ngFor="let appointment of appointmnetsObs | async " text-end>
+        <ion-avatar class="appointment-avatar"  slot="start">
+        <img [src]="appointment.roomUrl || 'assets/images/placeholder.jpg'">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{appointment.roomName}}</h2>
+        <h3 *ngFor="let date of appointment.bookedDates">{{date}}</h3>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

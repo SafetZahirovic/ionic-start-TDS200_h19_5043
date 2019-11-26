@@ -1,0 +1,9 @@
+<app-header
+        title="{{room?.roomName}}"
+        leftIcon="arrow-back"
+        [primaryAction]="headerPrimaryAction.bind(this)">
+</app-header>
+
+<ion-content>
+  <app-tds-feed-item [reservedDates]="reservedToUserArr" [userData]="user" [roomData]="room"></app-tds-feed-item>
+</ion-content>

@@ -1,0 +1,40 @@
+<ion-content>
+  <app-header [primaryAction]="headerPrimaryAction.bind(this)" leftIcon="arrow-back" title="signup"></app-header>
+  <ion-img src="assets/images/logo.png" style="height: 30vh"></ion-img>
+  <form  padding="10" [formGroup]="newRoomFormGroup">
+    <ion-list>
+      <ion-item lines="none">
+        <ion-label position="floating">E-post*</ion-label>
+        <ion-input formControlName="username" placeholder="E-mail" type="text" [(ngModel)]="user.username"></ion-input>
+        <span *ngIf="submitted && newRoomFormGroup.controls.username.errors">
+           <span style="color: var(--ion-color-danger); font-size: 10px" *ngIf="newRoomFormGroup.controls['username'].errors.required">Du må skrive en e-post adresse</span>
+          <span style="color: var(--ion-color-danger); font-size: 10px" *ngIf="newRoomFormGroup.controls['username'].errors.email">Du må skrive gyldig e-post adresse</span>
+        </span>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label position="floating">Passord*</ion-label>
+        <ion-input formControlName="password" placeholder="Password" type="password" [(ngModel)]="user.password"></ion-input>
+        <span *ngIf="submitted && newRoomFormGroup.controls.password.errors">
+           <span style="color: var(--ion-color-danger); font-size: 10px" *ngIf="newRoomFormGroup.controls['password'].errors.required">Du må skrive passord</span>
+        </span>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label position="floating">Gjenta passord*</ion-label>
+        <ion-input formControlName="repeatPassword" placeholder="Repeat password" type="password" [(ngModel)]="user.repeatPassword"></ion-input>
+        <span *ngIf="submitted && newRoomFormGroup.controls.repeatPassword.errors">
+           <span style="color: var(--ion-color-danger); font-size: 10px" *ngIf="newRoomFormGroup.controls['repeatPassword'].errors.required">Du må gjenta passordet</span>
+        </span>
+        <span *ngIf="submitted && user.password != user.repeatPassword && user.repeatPassword">
+          <span style="color: var(--ion-color-danger); font-size: 10px">Passorder er ikke like</span>
+        </span>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label position="fixed">Er utleier</ion-label>
+        <ion-checkbox color="primary" slot="start" [ngModelOptions]="{standalone: true}" [(ngModel)]="isLandLord"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+  </form>
+    <div class="button-container">
+      <ion-button class="submit-button" (click)="registerUser()">Signup</ion-button>
+    </div>
+</ion-content>

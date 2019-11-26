@@ -1,0 +1,37 @@
+<article>
+    <ion-card mode="ios" style="margin-bottom: 50px;">
+        <img style="max-height: 30vh" [src]="roomData.imageUrl || 'assets/images/placeholder.jpg'">
+      <ion-card-content>
+        <div><b>Room navn:</b> {{roomData.roomName}}</div>
+        <div><b>Selspakets navn:</b>{{roomData.companyRentingRoom}}</div>
+      </ion-card-content>
+      <ion-card-content class="card-content">
+        <div><b>Adressen: </b> <span >{{roomData.address}}</span></div>
+        <div *ngIf="!isNative" id="map"></div>
+      </ion-card-content>
+
+      <ion-card-content>
+        <ion-card-subtitle>
+          Når vil du reservere rommet?
+        </ion-card-subtitle>
+
+        <ion-list lines="none" >
+            <ion-item  *ngFor="let date of availableDatesObs | async  , let i = index" lines="none">
+              <ion-checkbox [checked]="false" slot="start" (click)="arrayFromCheckedDates(date)"></ion-checkbox>
+              <ion-label slot="start" text-start position="fixed">{{date}}</ion-label>
+            </ion-item>
+            <span *ngIf="reservedDates && reservedDates.length > 0">
+              <ion-item [hidden]="!reserved"  *ngFor="let reserved of reservedDates" lines="none">
+                <ion-checkbox [disabled]="reserved" [checked]="false" slot="start" (click)="arrayFromCheckedDates(reserved)"></ion-checkbox>
+                <ion-label [color]="reserved && 'medium'" slot="start" text-start position="fixed">{{reserved}}</ion-label>
+                <ion-button slot="end" [disabled]="!reserved" color="danger" class="cancel-button" (click)="cancelRoom(reserved)">Avbestill</ion-button>
+              </ion-item>
+            </span>
+        </ion-list>
+
+      </ion-card-content>
+      <ion-card-content text-center>
+        <ion-button [disabled]="noAvailableDates" class="submit-button" color="primary" (click)="reserveRoom()">Bestill</ion-button>
+      </ion-card-content>
+    </ion-card>
+</article>

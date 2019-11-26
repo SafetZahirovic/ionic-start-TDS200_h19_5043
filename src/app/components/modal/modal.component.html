@@ -1,0 +1,9 @@
+<ion-content>
+    <app-header title="Choose date/dates" [secondaryAction]="dismiss.bind(this)" rightSlotName="Legg til"></app-header>
+    <ion-calendar [(ngModel)]="dateMulti"
+                  [options]="optionsMulti"
+                  [type]="type"
+                  [format]="'YYYY-MM-DD'">
+    </ion-calendar>
+</ion-content>
+

@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="secondary">
+      <ion-button fill="clear" *ngIf="getPlatform() == 'ios' && primaryAction" (click)="primaryAction()">
+        {{leftSlotName}}
+        <ion-icon slot="icon-only" [name]="leftIcon"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button fill="clear" *ngIf="secondaryAction" (click)="secondaryAction()">
+        {{rightSlotName}}
+        <ion-icon slot="icon-only" [name]="rightIcon"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+

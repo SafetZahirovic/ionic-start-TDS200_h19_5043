@@ -1,0 +1,26 @@
+<ion-content>
+    <app-header [primaryAction]="headerPrimaryAction.bind(this)" leftIcon="arrow-back" title="signin"></app-header>
+    <ion-img src="assets/images/logo.png" style="height: 40vh"></ion-img>
+    <form padding="10" [formGroup]="newRoomFormGroup" margin-top="20">
+      <ion-list>
+        <ion-item lines="none">
+            <ion-label position="floating">E-mail*</ion-label>
+            <ion-input formControlName="username" placeholder="E-mail" [(ngModel)]="user.username" type="text"></ion-input>
+            <span *ngIf="submitted && newRoomFormGroup.controls.username.errors">
+                <span style="color: var(--ion-color-danger); font-size: 10px" *ngIf="newRoomFormGroup.controls['username'].errors.required">Du må skrive en e-post adresse</span>
+                <span style="color: var(--ion-color-danger); font-size: 10px" *ngIf="newRoomFormGroup.controls['username'].errors.email">Du må skrive gyldig e-post adresse</span>
+            </span>
+          </ion-item>
+          <ion-item lines="none">
+              <ion-label position="floating">Password*</ion-label>
+              <ion-input formControlName="password" placeholder="Password" [(ngModel)]="user.password" type="password"></ion-input>
+              <span *ngIf="submitted && newRoomFormGroup.controls.password.errors">
+                <span style="color: var(--ion-color-danger); font-size: 10px" *ngIf="newRoomFormGroup.controls['password'].errors.required">Du må skrive passord</span>
+              </span>
+          </ion-item>
+      </ion-list>
+    </form>
+    <div class="button-container">
+        <ion-button (click)="loginUser()">Login</ion-button>
+    </div>
+</ion-content>

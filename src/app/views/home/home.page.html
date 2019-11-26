@@ -1,0 +1,17 @@
+<app-header rightIcon="add" title="Home"></app-header>
+<ion-content>
+  <ion-list>
+    <div  *ngFor="let room of getAllRooms | async" >
+      <ion-item *ngIf="(!room.fullyBooked || room.whoCanSee?.includes(user.id))" (click)="navigateToDetailView(room)">
+        <ion-avatar  slot="start">
+          <img #pictures [src]="room.imageUrl || 'assets/images/placeholder.jpg'">
+        </ion-avatar>
+        <ion-label>
+          <h2>{{room.roomName}}</h2>
+          <h3>{{room.address}}</h3>
+          <p>{{room.companyRentingRoom}}</p>
+        </ion-label>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>
